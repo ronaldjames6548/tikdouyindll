@@ -9,60 +9,89 @@ import alpinejs from "@astrojs/alpinejs";
 import AstroPWA from "@vite-pwa/astro";
 import icon from "astro-icon";
 import solidJs from "@astrojs/solid-js";
+import vercel from '@astrojs/vercel/serverless';
 
-import vercel from "@astrojs/vercel/serverless";
-
-// https://astro.build/config
 export default defineConfig({
-  site: "https://astros.zank.studio",
+  site: "https://tiktokio.cam",
+  output: "hybrid",
+  adapter: vercel({
+    webAnalytics: {
+      enabled: true,
+    },
+  }),
   vite: {
     define: {
       __DATE__: `'${new Date().toISOString()}'`
     }
   },
-  output: "hybrid",
-  integrations: [tailwind(), sitemap(), astroI18next(), alpinejs(), AstroPWA({
-    mode: "production",
-    base: "/",
-    scope: "/",
-    includeAssets: ["favicon.svg"],
-    registerType: "autoUpdate",
-    manifest: {
-      name: "Astros - Starter Template for Astro with Tailwind CSS",
-      short_name: "Astros",
-      theme_color: "#ffffff",
-      icons: [{
-        src: "pwa-192x192.png",
-        sizes: "192x192",
-        type: "image/png"
-      }, {
-        src: "pwa-512x512.png",
-        sizes: "512x512",
-        type: "image/png"
-      }, {
-        src: "pwa-512x512.png",
-        sizes: "512x512",
-        type: "image/png",
-        purpose: "any maskable"
-      }]
-    },
-    workbox: {
-      navigateFallback: "/404",
-      globPatterns: ["*.js"]
-    },
-    devOptions: {
-      enabled: false,
-      navigateFallbackAllowlist: [/^\/404$/],
-      suppressWarnings: true
-    }
-  }), icon(), solidJs()],
+  integrations: [
+    tailwind(),
+    astroI18next(),
+    alpinejs(),
+    AstroPWA({
+      mode: "production",
+      base: "/",
+      scope: "/",
+      includeAssets: ["favicon.ico"],
+      registerType: "autoUpdate",
+      manifest: {
+        name: "Tiktokio - TikTok Downloader - Download TikTok Videos Without Watermark",
+        short_name: "Tikokio",
+        theme_color: "#ffffff",
+        icons: [{
+          src: "pwa-192x192.webp",
+          sizes: "192x192",
+          type: "image/webp"
+        }, {
+          src: "pwa-512x512.webp",
+          sizes: "512x512",
+          type: "image/webp"
+        }, {
+          src: "pwa-512x512.webp",
+          sizes: "512x512",
+          type: "image/webp",
+          purpose: "any maskable"
+        }]
+      },
+      workbox: {
+        navigateFallback: "/404",
+        globPatterns: ["*.js"]
+      },
+      devOptions: {
+        enabled: false,
+        navigateFallbackAllowlist: [/^\/404$/],
+        suppressWarnings: true
+      }
+    }),
+    icon(),
+    solidJs(),
+	sitemap({
+  filter(page) {
+    const url = new URL(page, 'https://tiktokio.cam');
+    
+    // All non-English language codes
+    const nonEnglishLangs = ['ar', 'it', 'de', 'es', 'fr', 'hi', 'id', 'ko', 'ms', 'nl', 'pt', 'ru', 'tl', 'tr'];
+    
+    // Should exclude if:
+    const shouldExclude = 
+      // Non-English blog posts (but keeps /{lang}/blog/ index pages)
+      nonEnglishLangs.some(lang => 
+        url.pathname.startsWith(`/${lang}/blog/`) && 
+        url.pathname !== `/${lang}/blog/`
+      ) ||
+      // Pagination, tags, categories
+      /\/blog\/\d+\//.test(url.pathname) ||
+      url.pathname.includes('/tag/') || 
+      url.pathname.includes('/category/');
+
+    return !shouldExclude;
+  }
+})
+  ],
   markdown: {
-    rehypePlugins: [rehypeSlug,
-    // This adds links to headings
-    [rehypeAutolinkHeadings, autolinkConfig]]
+    rehypePlugins: [rehypeSlug, [rehypeAutolinkHeadings, autolinkConfig]]
   },
   experimental: {
     contentCollectionCache: true
-  },
-  adapter: vercel()
+  }
 });

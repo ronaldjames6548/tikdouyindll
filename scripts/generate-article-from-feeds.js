@@ -55,7 +55,7 @@ async function generateImage(prompt, imageName) {
     size: "1024x1024",
   });
 
-  const file = fs.createWriteStream(`./public/images/${imageName}.png`);
+  const file = fs.createWriteStream(`./public/images/${imageName}.webp`);
 
   const request = await http.get(openAiResponse.data.data[0].url, function (response) {
     response.pipe(file);
@@ -237,7 +237,7 @@ draft: ${frontMatter.draft}
 title: "${frontMatter.title}"
 snippet: "${frontMatter.snippet}"
 image: {
-    src: "/images/${fileName}.png",
+    src: "/images/${fileName}.webp",
     alt: "${frontMatter.image.alt}"
 }
 publishDate: "${frontMatter.publishDate}"
