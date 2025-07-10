@@ -5,6 +5,7 @@ import { pwaInfo } from "virtual:pwa-info";
 import Footer from "@components/footer.astro";
 import Navbar from "@components/navbar/navbar.astro";
 import "@fontsource-variable/inter";
+
 import { HeadHrefLangs } from "astro-i18next/components";
 import { SEO } from "astro-seo";
 import i18next from "i18next";
@@ -26,7 +27,7 @@ const { title, lang = null } = Astro.props;
 
 const makeTitle = title
   ? `${title}`
-  : `${t("site.title")}`;
+  : `${t("site.td_title")}`;
 ---
 
 <html lang={lang ?? i18next.language}>
@@ -38,11 +39,10 @@ const makeTitle = title
   <meta name="theme-color" content="#ffffff" />
 <SpeedInsights />
 
+  <!-- Automatically generate hreflang tags -->
 		<HeadHrefLangs />
 
-<script src="https://analytics.ahrefs.com/analytics.js" data-key="Ku8HzupxQ7S1X+ddBrs6UQ" async></script>
-<script id="aclib" type="text/javascript" src="//acscdn.com/script/aclib.js"></script>
-
+  <script src="https://analytics.ahrefs.com/analytics.js " data-key="HyoQZaoyL3EKgb7MW1RuWA" async></script>
   <ViewTransitions />
 
   <!-- Global CSS -->
@@ -50,7 +50,7 @@ const makeTitle = title
 
   <SEO
     title={makeTitle}
-    description={t("site.description")}
+    description={t("site.td_description")}
     canonical={canonicalURL}
     openGraph={{
       basic: {
@@ -93,12 +93,6 @@ const makeTitle = title
 
   {pwaInfo && <Fragment set:html={pwaInfo.webManifest.linkTag} />}
   <script src="/src/pwa.ts"></script>
-<script type="text/javascript" data-cfasync="false">
-/*<![CDATA[/* */
-(function(){var p=window,t="b0b1bc1d57de55880040670c02a5f6f8",m=[["siteId",682+686+712+5153885],["minBid",0],["popundersPerIP","0"],["delayBetween",0],["default",false],["defaultPerDay",0],["topmostLayer","auto"]],a=["d3d3LnhhZHNtYXJ0LmNvbS9kc3Ryb3BoZS5taW4uY3Nz","ZDExZW5xMnJ5bXkweWwuY2xvdWRmcm9udC5uZXQvYUQva3dlbGQubWluLmpz"],j=-1,q,n,g=function(){clearTimeout(n);j++;if(a[j]&&!(1777640653000<(new Date).getTime()&&1<j)){q=p.document.createElement("script");q.type="text/javascript";q.async=!0;var b=p.document.getElementsByTagName("script")[0];q.src="https://"+atob(a[j]);q.crossOrigin="anonymous";q.onerror=g;q.onload=function(){clearTimeout(n);p[t.slice(0,16)+t.slice(0,16)]||g()};n=setTimeout(g,5E3);b.parentNode.insertBefore(q,b)}};if(!p[t]){try{Object.freeze(p[t]=m)}catch(e){}g()}})();
-/*]]>/* */
-</script>
-<script data-cfasync="false" async type="text/javascript" src="//wb.sleevesbarbing.com/s0jFDT5mdWgmvBbj/126753"></script>
 </head>
   <body class="dark:bg-stone-950">
     <Navbar />

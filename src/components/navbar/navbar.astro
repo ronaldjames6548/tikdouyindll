@@ -8,24 +8,20 @@ import { t } from "i18next";
 
 export const menuitems = [
   {
-    title: "Sub items",
-    children: [
-      { title: "Subitem 1", path: "#" },
-      { title: "Subitem 2", path: "#" },
-      { title: "Subitem 3", path: "#" },
-    ],
+    title: "header.blog_link",
+    path: "/blog/how-to-save-tiktok-videos-without-watermark",
   },
   {
-    title: "header.pricing",
-    path: "/pricing",
+    title: "header.nav_1",
+    path: "/tiktok-downloader",
   },
   {
-    title: "header.blog",
-    path: "/blog",
+    title: "header.nav_2",
+    path: "/download-tiktok-video",
   },
-  {
-    title: "header.contact",
-    path: "/contact",
+{
+    title: "header.nav_3",
+    path: "/tiktok-video-downloader",
   },
 ];
 ---
@@ -37,16 +33,16 @@ export const menuitems = [
   <div class="p-4 flex flex-row items-center justify-between">
     <a
       href={localizePath("/")}
-      class="flex gap-3 items-center text-lg font-semibold tracking-widest text-gray-900 uppercase rounded-lg dark:text-white focus:outline-none focus:shadow-outline"
+      class="flex items-center text-2xl font-bold tracking-widest text-gray-900 rounded-lg dark:text-white focus:outline-none focus:shadow-outline"
     >
       <Icon name="logo" width={30} class="dark:invert" />
-      Astros
+      Tiktokio
     </a>
     <div class="flex-grow md:hidden"></div>
 
     <div class="flex justify-center gap-3 items-center sm:hidden">
       <LanguageSelector
-        showFlag={false}
+        showFlag={true}
         class="appearance-none py-1 px-2 rounded bg-slate-100 dark:bg-stone-950"
       />
     </div>
@@ -150,7 +146,7 @@ export const menuitems = [
 												document.removeEventListener('astro:page-load', checkSubPath);
 												document.addEventListener('astro:page-load', checkSubPath);
 											}`}
-                      x-bind:class="{ 'bg-gray-200 dark:bg-gray-600': isActive }"
+                      x-bind:class="{ 'dark:bg-gray-600': isActive }"
                     >
                       {subitem.title}
                     </Link>
@@ -175,7 +171,7 @@ export const menuitems = [
 								document.removeEventListener('astro:page-load', checkPath);
 								document.addEventListener('astro:page-load', checkPath);
 							}`}
-              x-bind:class="{ 'bg-gray-200 dark:bg-gray-600': isActive }"
+              x-bind:class="{ 'dark:bg-gray-600': isActive }"
               data-path={item.path}
             >
               {t(item.title)}
@@ -184,22 +180,14 @@ export const menuitems = [
         )
       }
     </div>
-    <div class="mt-4 md:mt-0 flex flex-col md:flex-row gap-4">
+    <div class="mt-4 md:mt-0 flex flex-col md:flex-row gap-4 hidden md:block">
       <div class="flex justify-center gap-3 items-center">
         <LanguageSelector
-          showFlag={false}
+          showFlag={true}
           class="appearance-none py-1 px-2 rounded bg-slate-100 dark:bg-stone-950"
         />
       </div>
-      <Link href="/login" style="outline" class="md:px-3 md:py-2 leading-6">
-        {t("header.secondary_button_text")}
-      </Link>
-      <Link
-        href="https://github.com/zankhq/astros"
-        class="md:px-3 md:py-2 leading-6"
-      >
-        {t("header.primary_button_text")}
-      </Link>
+     
     </div>
   </nav>
 </div>
