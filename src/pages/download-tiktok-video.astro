@@ -1,0 +1,24 @@
+---
+import Container from "@components/container.astro";
+import Faq from "@components/faq.astro";
+import Features from "@components/dtvfeatures.astro";
+import Hero from "@components/dtv-hero.astro";
+import Newsletter from "@components/newsletter.astro";
+import Logos from "@components/logos.astro";
+
+import Layout from "@layouts/dtv-Layout.astro";
+import { changeLanguage } from "i18next";
+
+changeLanguage("en");
+---
+
+<Layout>
+	<Container>
+		<Hero />
+		<Features />
+		<Newsletter />
+		
+		<Faq />
+		
+	</Container>
+</Layout>

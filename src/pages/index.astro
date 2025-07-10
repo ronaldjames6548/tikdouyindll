@@ -4,6 +4,8 @@ import Faq from "@components/faq.astro";
 import Features from "@components/features.astro";
 import Hero from "@components/hero.astro";
 import Newsletter from "@components/newsletter.astro";
+import Logos from "@components/logos.astro";
+
 import Layout from "@layouts/Layout.astro";
 import { changeLanguage } from "i18next";
 
@@ -14,7 +16,9 @@ changeLanguage("en");
 	<Container>
 		<Hero />
 		<Features />
-		<Faq />
 		<Newsletter />
+		<Logos />
+		<Faq />
+		
 	</Container>
 </Layout>
